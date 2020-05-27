@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">密码罐</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">账号</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="welcome">"欢迎 "</string>
+    <string name="invalid_username">用户名无效</string>
+    <string name="invalid_password">密码格式错误</string>
+    <string name="login_failed">"登录失败"</string>
+    <string name="action_register_in">注册</string>
+    <string name="title_activity_main">密码罐</string>
+    <string name="navigation_drawer_open">打开 navigation drawer</string>
+    <string name="navigation_drawer_close">关闭 navigation drawer</string>
+    <string name="nav_header_title">不一样烟火</string>
+    <string name="nav_header_subtitle">password@management.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">系统设置</string>
+
+    <string name="menu_home">首页</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="menu_pwd_manager">密码管理</string>
+    <string name="menu_user_update">修改用户</string>
+
+
+    <!---->
+    <string name="empty_directory">Empty Directory</string>
+    <string name="storage_removed">Storage was removed or unmounted.</string>
+    <string name="choose_file">Select a file</string>
+    <string name="error_selecting_file">Error selecting File</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="menu_config">设置</string>
+    <string name="aboutme">使用说明：\n1、密钥：密码使用密钥加密，也需要相同的密钥才能解密，可根据需要使用不同密钥加密。
+        \n2、本app为单用户使用，无法注册多个用户，只能修改用户名和密码。
+        \n3、本app所有密码加密存储，导出的文件再次加密，用于备份和迁移（前提是app版本相同，而且输入相同的密钥）。
+        \n4、密码管理页面，双击显示密码明文，长按复制。添加账号如果已存在则直接覆盖无提示。
+    </string>
+    <string name="menu_pwd_generator">密码生成</string>
+    <string name="amp"><![CDATA[~!@#$%^&*()_+{}|:"<>?-=....]]></string>
+</resources>

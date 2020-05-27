@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dssd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="密钥"
+            />
+        <EditText
+            android:id="@+id/text_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sdd"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"/>
+        <Switch
+            android:id="@+id/switch_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="60dp"
+            android:layout_marginRight="15dp"
+            android:checked="false"
+            android:showText="true"
+            android:textOff="隐"
+            android:textOn="显"
+            android:typeface="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/about_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:text="关于我"
+        android:clickable="true"
+        android:background="@drawable/selector_text_color_change"
+        />
+    </LinearLayout>
+
+</LinearLayout>

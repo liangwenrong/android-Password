@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <!--    <fragment
+            android:id="@+id/nav_home"
+            android:name="com.lwr.mypassword.ui.home.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home">
+
+            <action
+                android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+                app:destination="@id/nav_home_second" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_home_second"
+            android:name="com.lwr.mypassword.ui.home.HomeSecondFragment"
+            android:label="@string/home_second"
+            tools:layout="@layout/fragment_home_second">
+            <action
+                android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+                app:destination="@id/nav_home" />
+
+            <argument
+                android:name="myArg"
+                app:argType="string" />
+        </fragment>-->
+
+<!--    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.lwr.password.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home"/>
+
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.lwr.password.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.lwr.password.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />-->
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.lwr.password.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/nav_pwd_manager"
+        android:name="com.lwr.password.ui.pwdmanager.PasswordManager"
+        android:label="@string/menu_pwd_manager"
+        tools:layout="@layout/fragment_pwd_manager" />
+
+    <fragment
+        android:id="@+id/nav_pwd_generator"
+        android:name="com.lwr.password.ui.pwdgenerator.PasswordGenerator"
+        android:label="@string/menu_pwd_generator"
+        tools:layout="@layout/fragment_pwd_generator" />
+
+    <fragment
+        android:id="@+id/nav_user_update"
+        android:name="com.lwr.password.ui.userupdate.UserUpdate"
+        android:label="@string/menu_user_update"
+        tools:layout="@layout/fragment_user_update" />
+    <fragment
+        android:id="@+id/nav_config"
+        android:name="com.lwr.password.ui.config.Configurater"
+        android:label="@string/menu_config"
+        tools:layout="@layout/fragment_config" />
+</navigation>

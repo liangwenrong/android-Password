@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.pwdmanager.PasswordManager"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.pwdmanager.PasswordManager">
+
+    <!--两个按钮-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_id"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/sec_add"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/del_id"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/sec_delete" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--搜索框-->
+    <EditText
+        android:id="@+id/search_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="搜索"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLines="1" />
+
+    <!--密码列表-->
+    <ListView
+        android:id="@+id/userlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+</LinearLayout><!--
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
