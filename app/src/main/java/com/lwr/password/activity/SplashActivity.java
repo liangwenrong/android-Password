@@ -7,10 +7,14 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lwr.password.R;
+import com.lwr.password.constant.Constants;
 import com.lwr.password.data.DataPreferences;
 import com.lwr.password.ui.gesture.GestureType;
 import com.lwr.password.ui.gesture.PwdGestureCheckActivity;
 import com.lwr.password.ui.login.LoginActivity;
+import com.lwr.password.ui.userupdate.RegisterActivity;
+
+import java.util.Map;
 
 public class SplashActivity extends AppCompatActivity {
     @Override
@@ -27,14 +31,20 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void doJump() {
-        boolean isFingerLogin = DataPreferences.isIsFingerLogin(getApplicationContext());
-        if (isFingerLogin) {//手势登录
-            Intent intent = new Intent(SplashActivity.this, PwdGestureCheckActivity.class);
-            intent.putExtra("gestureFlg", GestureType.FOR_CHECK);
+        Map<String, ?> allUsers = DataPreferences.getAllForMap(getApplicationContext(), Constants.PREFERENCES_FILE_NAME_USER);
+        if (allUsers.isEmpty()) {//去注册
+            Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
+            boolean isFingerLogin = DataPreferences.isIsFingerLogin(getApplicationContext());
+            if (isFingerLogin) {//手势登录
+                Intent intent = new Intent(SplashActivity.this, PwdGestureCheckActivity.class);
+                intent.putExtra("gestureFlg", GestureType.FOR_CHECK);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         }
         finish();
     }
