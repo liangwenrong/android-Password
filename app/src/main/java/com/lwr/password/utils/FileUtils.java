@@ -54,7 +54,7 @@ public class FileUtils {
      *
      * @throws FileNotFoundException
      */
-    public static boolean exportPasswordFile(final Activity activity, String relateFilePath){
+    public static boolean exportPasswordFile(final Activity activity, String relateFilePath) {
         Context applicationContext = activity.getApplicationContext();
         File dest = FileUtils.mkdirByRelateFilePath(activity, relateFilePath);
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -62,6 +62,9 @@ public class FileUtils {
             return false;
         }
         Map<String, ?> map = DataPreferences.getAllForMap(applicationContext, Constants.PREFERENCES_FILE_NAME_PASSWORD);
+        if (map.size() < 1) {
+            return false;
+        }
         ByteArrayOutputStream bos = null;
         ByteArrayInputStream bis = null;
         ObjectOutputStream objOut = null;

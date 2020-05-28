@@ -149,13 +149,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * 初始用户
-         */
-        Map<String, ?> allUsers = DataPreferences.getAllForMap(getApplicationContext(), Constants.PREFERENCES_FILE_NAME_USER);
-        if (allUsers.isEmpty()) {
-            DataPreferences.saveKeyValue("admin", "admin", getApplicationContext(), Constants.PREFERENCES_FILE_NAME_USER);
-        }
     }
 
 

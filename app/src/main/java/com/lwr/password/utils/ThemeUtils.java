@@ -1,4 +1,4 @@
-package com.lwr.password.ui.thmem;
+package com.lwr.password.utils;
 
 import android.app.Activity;
 import android.os.Build;

@@ -26,13 +26,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lwr.password.R;
 import com.lwr.password.constant.Constants;
 import com.lwr.password.data.DataPreferences;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class PasswordManager extends Fragment {
@@ -49,6 +47,9 @@ public class PasswordManager extends Fragment {
     private int totalItemCount;
     private int startIndex;
     private int length;
+    //单选
+    private int lastCheckedItem = -1;
+    private int currentCheckedItem = 0;
 
     @SuppressLint("ClickableViewAccessibility")//onTouch拦截了onClick事件，忽略
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -78,6 +79,7 @@ public class PasswordManager extends Fragment {
         adapter.setNotifyOnChange(false);
         listView = root.findViewById(R.id.userlistview);
         listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //允许查询列表
         listView.setTextFilterEnabled(true);
 //        changeSearchBlack(listView);///todo
@@ -93,6 +95,9 @@ public class PasswordManager extends Fragment {
                 builder.setView(view);
 
                 final EditText userEdit = (EditText) view.findViewById(R.id.userEdit);
+                if (listView.isItemChecked(currentCheckedItem)) {
+                    userEdit.setText((listView.getItemAtPosition(currentCheckedItem).toString()));
+                }
                 final EditText passwdEdit = (EditText) view.findViewById(R.id.passwdEdit);
                 final EditText passwdEdit2 = (EditText) view.findViewById(R.id.passwdEdit2);
                 Switch pwdSwitch = view.findViewById(R.id.switch_pwd);
@@ -218,6 +223,9 @@ public class PasswordManager extends Fragment {
                 builder.setView(view);
 
                 final EditText userDelete = (EditText) view.findViewById(R.id.user_del);
+                if (listView.isItemChecked(currentCheckedItem)) {
+                    userDelete.setText((listView.getItemAtPosition(currentCheckedItem).toString()));
+                }
                 builder.setPositiveButton("确认删除",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -258,7 +266,7 @@ public class PasswordManager extends Fragment {
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 if (isFastDoubleClick()) {//双击
                     String username = ((AppCompatCheckedTextView) view).getText().toString();
                     String password = DataPreferences.getStringByKey(username, root.getContext(), Constants.PREFERENCES_FILE_NAME_PASSWORD);
@@ -266,8 +274,14 @@ public class PasswordManager extends Fragment {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     AlertDialog alertDialog = builder.setTitle(username).setMessage(password).create();
                     alertDialog.show();
+                }else{
+                    //单击或者双击的第一下
+                    lastCheckedItem = currentCheckedItem;
+                    currentCheckedItem = position;
+                    if(lastCheckedItem == currentCheckedItem){
+                        listView.setItemChecked(position, false);
+                    }
                 }
-
             }
         });
 

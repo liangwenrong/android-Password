@@ -4,14 +4,15 @@ package com.lwr.password.data;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.format.DateUtils;
 
 import com.lwr.password.constant.Constants;
 import com.lwr.password.utils.AESCrypt;
 import com.lwr.password.utils.RSAUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.security.GeneralSecurityException;
@@ -23,6 +24,7 @@ import java.util.Map;
  * 其中，string类型的value，存储和获取都会经过加密解密工序
  */
 public class DataPreferences {
+    private static final String OBJECT_SERIALIZABLE = "Serializable=";
 
     /**
      * 获取preferencesFilename所有的键
@@ -71,6 +73,58 @@ public class DataPreferences {
         return value;
     }
 
+    public static <T> T getRawObjectByKey(String key, T defaultValue, Context context, String preferencesFilename) {
+        SharedPreferences preferences = context.getSharedPreferences(preferencesFilename, Activity.MODE_PRIVATE);
+        Object value = defaultValue;
+        if (defaultValue == null) {
+            String object = preferences.getString(key, null);
+            if (object == null || !object.startsWith(OBJECT_SERIALIZABLE)) {
+                return (T) value;
+            } else {//查找序列化对象
+                object = object.substring(OBJECT_SERIALIZABLE.length());
+                try {
+                    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(object.getBytes("UTF-8"));
+                    ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                    Object readObject = objectInputStream.readObject();
+                    return (T) readObject;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        switch (defaultValue.getClass().getSimpleName()) {
+            case "String":
+                value = preferences.getString(key, (String) defaultValue);
+                break;
+            case "Integer":
+                value = preferences.getInt(key, (Integer) defaultValue);
+                break;
+            case "Boolean":
+                value = preferences.getBoolean(key, (Boolean) defaultValue);
+                break;
+            case "Float":
+                value = preferences.getFloat(key, (Float) defaultValue);
+                break;
+            case "Long":
+                value = preferences.getLong(key, (Long) defaultValue);
+                break;
+            default: {//序列化对象
+                String object = preferences.getString(key, null);
+                if (object != null && object.startsWith(OBJECT_SERIALIZABLE)) {
+                    object = object.substring(OBJECT_SERIALIZABLE.length());
+                    try {
+                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(object.getBytes("UTF-8"));
+                        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                        value = objectInputStream.readObject();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return (T) value;
+    }
+
     /**
      * 不经过加密的
      */
@@ -78,12 +132,6 @@ public class DataPreferences {
         SharedPreferences preferences = context.getSharedPreferences(preferencesFileName, Activity.MODE_PRIVATE);
         return preferences.getString(key, null);
     }
-
-
-    /*public static Object getObjectByKey(String key, Context context, String preferencesFilename){
-        SharedPreferences preferences = context.getSharedPreferences(preferencesFilename, Activity.MODE_PRIVATE);
-        return preferences.get(key, null);
-    }*/
 
 
     public synchronized static void saveRawKeyValue(Map<String, ?> map, Context context, String preferencesFilename) {
@@ -148,7 +196,7 @@ public class DataPreferences {
                 ObjectOutputStream oos = new ObjectOutputStream(baos);
                 oos.writeObject(object);
                 String objectToStringUTF_8 = new String(baos.toByteArray(), "UTF-8");
-                editor.putString(key, objectToStringUTF_8);
+                editor.putString(key, OBJECT_SERIALIZABLE + objectToStringUTF_8);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -200,8 +248,30 @@ public class DataPreferences {
 
     public static void loadAndRefreshAESKEY(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES_FILE_NAME_CONFIG, Activity.MODE_PRIVATE);
-        String key = sharedPreferences.getString(Constants.CONFIG_KEY, "");
+        String key = sharedPreferences.getString(Constants.CONFIG_AES_KEY, "");
         Constants.setAesKey(key);
+    }
+
+//    public static void loadAndRefreshIsFINGERLOGIN(Context context) {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES_FILE_NAME_CONFIG, Activity.MODE_PRIVATE);
+//        boolean isFingerLogin = sharedPreferences.getBoolean(Constants.CONFIG_IS_FINGER_LOGIN, false);
+//        Constants.setIsFingerLogin(isFingerLogin);
+//
+//    }
+
+    public static boolean isIsFingerLogin(Context context) {
+        return getRawObjectByKey(Constants.CONFIG_IS_FINGER_LOGIN, false, context, Constants.PREFERENCES_FILE_NAME_CONFIG);
+    }
+
+    public static void setIsFingerLogin(boolean isFingerLogin, Context context) {
+        saveKeyValue(Constants.CONFIG_IS_FINGER_LOGIN, isFingerLogin, context, Constants.PREFERENCES_FILE_NAME_CONFIG);
+    }
+
+    /**
+     * 启动初始化
+     */
+    public static void initAPP(Context context) {
+        Constants.setAesKey(getRawString(Constants.CONFIG_AES_KEY, context, Constants.PREFERENCES_FILE_NAME_CONFIG));
     }
 
 }

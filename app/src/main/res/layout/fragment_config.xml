@@ -37,9 +37,37 @@
             android:typeface="normal" />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:text="使用手势登录"
+            />
+        <Switch
+            android:id="@+id/switch_finger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="60dp"
+            android:layout_marginRight="15dp"
+            android:checked="false"
+            android:showText="true"
+            android:textOff="关"
+            android:textOn="开"
+            android:typeface="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
     <TextView
         android:id="@+id/about_me"
         android:layout_width="match_parent"

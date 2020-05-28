@@ -32,13 +32,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.lwr.password.data.DataPreferences;
 import com.lwr.password.data.Permissions;
 import com.lwr.password.filechooser.FileUtil;
 import com.lwr.password.ui.home.HomeFragment;
-import com.lwr.password.ui.thmem.ThemeUtils;
 import com.lwr.password.utils.DateUtils;
 import com.lwr.password.utils.FileUtils;
+import com.lwr.password.utils.ThemeUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -83,11 +82,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        /**
-         * 加载存储中的AESkey到内存字段中
-         */
-        DataPreferences.loadAndRefreshAESKEY(getApplicationContext());
         /**
          * 申请读写权限
          */
@@ -156,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
             mShowMorePopupWindowWidth = content.getMeasuredWidth();
             mShowMorePopupWindowHeight = content.getMeasuredHeight();
             View parent = mMorePopupWindow.getContentView();
-            TextView inport = (TextView) parent.findViewById(R.id.inport);
-            TextView export = (TextView) parent.findViewById(R.id.export);
+            TextView inport = parent.findViewById(R.id.inport);
+            TextView export = parent.findViewById(R.id.export);
             inport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {//导入

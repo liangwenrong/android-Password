@@ -3,6 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-
     <color name="clickBackground">#CEE8DDDD</color>
+
+    <!--手势密码-->
+    <color name="black">#000</color>
+    <color name="bak_blue">#3691ff</color>
+
 </resources>
